@@ -10,6 +10,7 @@ function App() {
   console.log(inputRefs.current)
   useEffect(() => {
     console.log("Refs after render:", inputRefs.current);
+    inputRefs.current[0].focus();
   }, []);
   const handleChange = (index, e) => {
      const value = e.target.value;
@@ -22,7 +23,7 @@ function App() {
      }
   }
   const handleKeyDown = (index,e) => {
-    if(e.key === "Backspace") {
+    if(e.key === "Backspace" && !otp[index]) {
       inputRefs.current[index-1].focus()
     }
   }
