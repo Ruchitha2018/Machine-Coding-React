@@ -1,34 +1,43 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Profile from './components/Profile'
+import Address from './components/Address'
+import Settings from './components/Settings'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeTab, setActiveTab] = useState(0)
+
+
+  const multiTabs = [
+    {
+      tabId: 1,
+      tabName: 'Profile',
+      tabComponent: <Profile activeTab={activeTab} setActiveTab={setActiveTab} />
+    },
+    {
+      tabId: 2,
+      tabName: 'Address',
+      tabComponent: <Address />
+    },
+    {
+      tabId: 3,
+      tabName: 'Settings',
+      tabComponent: <Settings />
+    }
+  ]
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="multi-form-tabs">
+      <div className="tabs">
+        {multiTabs.map((data, index) => (
+          <div className="tabs-heading" key={data.tabId}>
+            <div>{index + 1}</div>
+            <div>{data.tabName}</div>
+          </div>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <div className="tab-content">{multiTabs[activeTab].tabComponent}</div>
+    </div>
   )
 }
 
