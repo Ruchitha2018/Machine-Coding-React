@@ -1,6 +1,6 @@
 import React from "react"
 
-const ChildComponent = React.memo(({data}) => {
+const ChildComponent = React.memo(({onClick}) => {
     console.log('Child')
     return (
         <>Child</>
