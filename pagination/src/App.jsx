@@ -4,41 +4,47 @@ import './App.css'
 //https://dummyjson.com/products?limit=100
 
 function App() {
-
-  const [todos, setTodos] = useState([]);
+  const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1)
 
-  const handleFetchData = async () => {
-    const res = await fetch('https://dummyjson.com/products?limit=100');
+  const fetchData = async () => {
+    const res = await fetch('https://dummyjson.com/products?limit=150');
     const data = await res.json();
-    setTodos(data.products);
-    console.log(data);
+    console.log('DATA', data)
+    setProducts(data.products);
   }
 
-  useEffect(() => {
-    handleFetchData()
-  }, [])
+  const productsPerPage = 20;
+  const totalPages = Math.ceil(products.length/productsPerPage);
+  const indexOfLastItem = currentPage*productsPerPage;
+  const indexOfFirstItem = indexOfLastItem - productsPerPage;
+  const updatedProducts = products.slice(indexOfFirstItem, indexOfLastItem)
 
-  const indexofLastItem = currentPage * 10;
-  const indexofFirstItem = indexofLastItem - 10;
-  const currentItems = todos.slice(indexofFirstItem, indexofLastItem);
+  console.log('DATA', totalPages,  indexOfFirstItem, indexOfLastItem, products.length)
+
+
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return (
     <>
-    {
-      currentItems.map((item, index) => (
-        <tr>
-          <td>{item.title}</td>
-        </tr>
-      ))
-    }
-    {
-      [...Array(todos.length/10)].map((_,i) => (
-        <span onClick={() => setCurrentPage(i+1)} style={{backgroundColor: currentPage === i+1 ? 'lightblue': 'black'}}>{i+1}</span>
-      ))
-    }
-   
+      <table>
+        <tbody>
+          {updatedProducts.map((product, index) => (
+            <tr><td>{product.title}</td></tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="pagination">
+       { [...Array(totalPages)].map((_, index) => (
+        <span onClick={() => setCurrentPage(index+1)} className={`pagination-index ${currentPage === index+1 ? 'active': ''}`}>{index+1}</span>
+       ))}
+      </div>
     </>
+
+
   )
 }
 

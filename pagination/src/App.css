@@ -40,3 +40,15 @@
 .read-the-docs {
   color: #888;
 }
+.pagination {
+  margin-top: 10px;
+}
+.pagination-index {
+  padding: 10px;
+  background-color: lightgrey;
+  cursor: pointer;
+}
+.active {
+  background-color: darkcyan;
+  color: #fff;
+}
