@@ -4,14 +4,12 @@ const GridLights = ({size}) => {
     const [grid, setGrid] = useState(Array(size*size).fill(false));
     const [activationOrder, setActivationOrder] = useState([])
     console.log(grid)
-
     const handleClick = (index) => {
       const newGrid = [...grid];
       newGrid[index] = true;
       setGrid(newGrid);
       setActivationOrder([...activationOrder, index])
     }
-
     useEffect(() => {
       if(grid.length === activationOrder.length) {
         let i = grid.length-1;
@@ -42,5 +40,4 @@ const GridLights = ({size}) => {
         </div>
     )
 }
-
 export default GridLights;
