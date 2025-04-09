@@ -1,0 +1,10 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 25%);
+}
+.grid {
+  height: 40px;
+  width: 40px;
+  background-color: red;
+  margin-bottom: 10px;
+}
